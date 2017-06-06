@@ -29,3 +29,9 @@ int main(int argc, char* argv[], char* envp[]){
 
 #### you just have r 0x1234 and input LETMEWIN to get the flag !!!! :)
  
+ ### 2) COllosion 
+               4bytes - 1 int 
+	       so spit the valu accordingly
+### 3) BOFe
+             overflow and change the variable valu
+	       
