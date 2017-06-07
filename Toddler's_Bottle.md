@@ -32,6 +32,7 @@ int main(int argc, char* argv[], char* envp[]){
  ### 2) COllosion 
                4bytes - 1 int 
 	       so spit the valu accordingly
-### 3) BOFe
-             overflow and change the variable valu
-	       
+### 3) BOF
+             overflow and change the variable value
+### 5) Random
+             the program uses rand() without a seed , so it genrates same no always
