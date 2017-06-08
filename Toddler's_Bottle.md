@@ -36,3 +36,12 @@ int main(int argc, char* argv[], char* envp[]){
              overflow and change the variable value
 ### 5) Random
              the program uses rand() without a seed , so it genrates same no always
+### 6) mistake
+          if(fd=read("passwd",'r')<0) this always retuerns fd=0 coz "<" has higher priority than "="
+	  u can give password and validate the chall 
+### 7) shellshock
+          ths was bug 10 years ago , the bash usually  reads all varible marked as export as well as exported funcion into the stack , but the bug is it does not stops after pasrsing the exported funcion it as well as executes command after funcion delcreation 
+	  
+	  export evil='() {  :; }; /bin/sh'
+	  if bash is called inside su-binary u get a previlage esclated shell 
+[Refer here](https://unix.stackexchange.com/questions/157329/what-does-env-x-command-bash-do-and-why-is-it-insecure)
