@@ -45,3 +45,12 @@ int main(int argc, char* argv[], char* envp[]){
 	  export evil='() {  :; }; /bin/sh'
 	  if bash is called inside su-binary u get a previlage esclated shell 
 [Refer here](https://unix.stackexchange.com/questions/157329/what-does-env-x-command-bash-do-and-why-is-it-insecure)
+
+
+### 8) cmd1 
+  In this que the program  overwrites path variavle to /**** which doesent exist and check for argv for (sh,tmp,flag) and excutes our cmd given in argv . In this we can  again restore PATH var by using export as this is bash - builtin command and then execute /bin/sh
+
+### 9) cmd2 
+  In this one the  program  filters  more words  (export,flag,=,PATH)
+  so now u can use eval commnad which is also bash-builtin to execute  stuff 
+  ./cmd2 "read f ; echo \$f; eval \$f ; cat *"  to get the flag
