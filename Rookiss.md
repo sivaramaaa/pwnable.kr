@@ -41,8 +41,19 @@ while True:
 	print "trying ...."
 	p = subprocess.Popen([envaddr], executable="./tiny_easy", env=myenv)
 	p.wait()
-
-
 ````
-
 ##### flag: What a tiny task :) good job!
+
+#### Fsb 
+it was a format string bug , and program asks u to guess a key(random val) ,there are 3 ways to solve problem : <br> 
+    1) Leak key ( i did ,but problem is stroull is treadted as int if <stdlib.h> is not included ) <br>
+    2) Overwrite key ( it takes a lot of time to print , u had to redirect to > /dev/null ) <br>
+    3) Change the control flow ( which i have to try ) <br>
+    
+##### flag :Have you ever saw an example of utilizing [n] format character?? :(    
+    
+
+
+
+
+
