@@ -102,6 +102,16 @@ p.interactive()
 ```
 ###### flag : MaMa, Gandhi was right! :)
 
+#### fix 
+
+The problem simply executes a shellcode , but asks us fix one byte the problem is stack space is so less so at some stage 
+it eats our shellcode too , so to solve this there are 2 ways  <br> <br>
+		1) issue ulimit -s unlimited ;patch 15'th byte to pop esp , then esp value will be "/bin/sh" but still will be
+		   valid due to ulimit <br> <br>
+		2) pathch 15'th byte to leave ; but now ecx+4 (argv[1]) will be some bytes so sh interprets as file to execute so create a symbolic link of that bytes to a.sh file 
+		
+##### flag : Sorry for blaming shell-strom.org :) it was my ignorance!
+		
 
 
 
