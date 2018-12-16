@@ -57,4 +57,4 @@ int main(int argc, char* argv[], char* envp[]){
 
 ### 10) blukat
 
-What a shame , this challange was not even a simple  bufferflow i was thinking it had something to do with GOT overwrite or something , all u had to do was `cat password > ./bin` , what the heck r8 !! 
+What a shame , this challange was not even a simple  bufferflow i was thinking it had something to do with GOT overwrite or something , all u had to do was `cat password | ./blukat` , what the heck r8 !! 
