@@ -54,3 +54,7 @@ int main(int argc, char* argv[], char* envp[]){
   In this one the  program  filters  more words  (export,flag,=,PATH)
   so now u can use eval commnad which is also bash-builtin to execute  stuff 
   ./cmd2 "read f ; echo \$f; eval \$f ; cat *"  to get the flag
+
+### 10) blukat
+
+What a shame , this challange was not even a simple  bufferflow i was thinking it had something to do with GOT overwrite or something , all u had to do was `cat password > ./bin` , what the heck r8 !! 
